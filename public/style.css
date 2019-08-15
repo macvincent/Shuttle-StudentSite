@@ -1,11 +1,29 @@
-/* Always set the map height explicitly to define the size of the div
- * element that contains the map. */
-#map {
-  height: 100%;
-}
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+.cuApp{
+  height: 100%;
+  width: 100%;
+  background: #f2f2f2;
+  color: #666;
+}
+nav{
+  width: 25%;
+  background-color:#963f3f96;
+  height: 100%;
+}
+nav div{
+  height: 45px;
+  background: blue;
+  color: black;
+}
+div h1{
+  text-align: center;
+  margin: 0;
+}
+.map{
+  width: 70%;
 }
