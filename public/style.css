@@ -18,32 +18,38 @@ html, body {
 .cuApp{
   height: 100%;
   width: 100%;
-  background: #f2f2f2;
-  color: #666;
   display: flex;
 }
 nav{
   width: 25%;
-  background-color:#963f3f96;
   height: 100%;
+  background-color: #f9f9f9;
 }
 nav div{
   height: 45px;
-  background: blue;
   color: black;
 }
-div h1{
+h1{
   text-align: center;
-  margin: 0;
+  margin: 1em;
+  font-size: 1em;
 }
 .map{
   width: 75%;
   height: 100%;
 }
 .route_name{
-  background: #666;
-  padding: 5px;
+  padding: 5px 10px;
+  color: #363636;
+  background-color: 
   text-align: center;
+  border-bottom: solid #d3d3d3 .5px;
+}
+.route_name:hover{
+  background-color:#ededed;
+}
+.route_name:first-child{
+  border-top: solid#d3d3d3 .5px;
 }
 ul{
   padding: 0;
@@ -51,6 +57,6 @@ ul{
   list-style: none;
 }
 a{
-  color: #fff;
+  color: inherit;
   text-decoration: none;
 }
