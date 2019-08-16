@@ -1,7 +1,7 @@
-async function getRoute(){
+async function getRoute(id){
   let route = []
   await $.ajax({
-      url: "http://127.0.0.1:8000/route/direction/7", 
+      url: `http://127.0.0.1:8000/route/direction/${id}`, 
       type: "GET",   
       dataType: 'json',
       cache: true,
@@ -44,46 +44,61 @@ function initMap() {
     }, 2000);
 } 
 
-// Render route
-getRoute().then(flightPlanCoordinates => {
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
-  flightPath.setMap(map);
-  let marker;
-
-  setInterval(() => {
-    // Set position of user
-
-    // // Get position of vehicle being tracked
-    // $.get('http://127.0.0.1:8000/shuttle/4/').then(response => {
-    //   if(marker)
-    //     marker.setMap(null)
-    //   console.log("got here", response[0].longitude, response[0].latitude);
-    //   marker = new google.maps.Marker({
-    //     position: new google.maps.LatLng(response[0].latitude, response[0].longitude),
-    //     map: map,
-    //     icon: './car.png',
-    //     title:"Hello World!"
-    //   });
-    //   marker.setMap(map);
-    // });
-
-  }, 1000);
-
-}).catch(error => {
-  alert("sorry we have an error");
-});
 
 function getRouteInfo(){
   $.get("http://127.0.0.1:8000/route/getroutes/").then(data => {
+    console.log(data);
     data.forEach(route => {
-      $('ul').append(`<li class = "route_name"><a href="#">${route.route_name}</a></li>`)
+      $('ul').append(`<li class = "route_name"><a href="${route.id}">${route.route_name}</a></li>`)
     });
+    // On click render route on map
+    $(".route_name a").click(e => {
+      e.preventDefault();
+      let id = $(e.target).attr('href');
+          
+      // Render route and show buses moving
+      getRoute(id).then(routeInfo => {
+        var flightPath = new google.maps.Polyline({
+          path: routeInfo,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        flightPath.setMap(map);
+        
+        // Get buses on route
+        let buses;
+        data.forEach(datum => {
+          if(datum.id == id){
+            buses = datum.buses;
+          }
+        });
+        console.log(buses)
+        let marker;
+        setInterval(() => {
+          // Set position of user
+
+          // // Get position of vehicle being tracked
+          // $.get('http://127.0.0.1:8000/shuttle/4/').then(response => {
+          //   if(marker)
+          //     marker.setMap(null)
+          //   console.log("got here", response[0].longitude, response[0].latitude);
+          //   marker = new google.maps.Marker({
+          //     position: new google.maps.LatLng(response[0].latitude, response[0].longitude),
+          //     map: map,
+          //     icon: './car.png',
+          //     title:"Hello World!"
+          //   });
+          //   marker.setMap(map);
+          // });
+
+        }, 1000);
+
+      }).catch(error => {
+        alert("sorry we have an error");
+      });
+    });    
   });
 }
 
