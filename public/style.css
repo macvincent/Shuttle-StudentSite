@@ -1,3 +1,14 @@
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+ #map {
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+} 
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
@@ -9,6 +20,7 @@ html, body {
   width: 100%;
   background: #f2f2f2;
   color: #666;
+  display: flex;
 }
 nav{
   width: 25%;
@@ -25,5 +37,20 @@ div h1{
   margin: 0;
 }
 .map{
-  width: 70%;
+  width: 75%;
+  height: 100%;
+}
+.route_name{
+  background: #666;
+  padding: 5px;
+  text-align: center;
+}
+ul{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+a{
+  color: #fff;
+  text-decoration: none;
 }

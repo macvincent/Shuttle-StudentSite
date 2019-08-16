@@ -19,7 +19,6 @@
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
-
       Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
@@ -27,20 +26,22 @@
     <title>React App Test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./src.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgII8bDagXqXHG1te_iD-sS34vvamF4Dg&callback=initMap" async defer></script>    
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <div id="map"></div>
     <div class="cuApp">
       <nav>
         <div>
           <h1>CUTransit</h1>
         </div>
+        <ul>
+        </ul>
       </nav>
       <!-- Replace the value of the key parameter with your own API key. -->
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgII8bDagXqXHG1te_iD-sS34vvamF4Dg&callback=initMap" async defer></script>    
+      <div id="map" class="map"></div>
     </div>
  </body>
 </html>
