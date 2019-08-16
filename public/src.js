@@ -75,26 +75,24 @@ function getRouteInfo(){
           }
         });
         console.log(buses)
-        let marker;
-        setInterval(() => {
-          // Set position of user
+        buses.forEach( id => {
+          let marker;
+          setInterval(() => {  
+            // Get position of vehicle being tracked
+            $.get(`http://127.0.0.1:8000/shuttle/${id}/`).then(response => {
+              if(marker)
+                marker.setMap(null)
+              marker = new google.maps.Marker({
+                position: new google.maps.LatLng(response[0].latitude, response[0].longitude),
+                map: map,
+                icon: './car.png',
+                title:"Hello World!"
+              });
+              marker.setMap(map);
+            });
 
-          // // Get position of vehicle being tracked
-          // $.get('http://127.0.0.1:8000/shuttle/4/').then(response => {
-          //   if(marker)
-          //     marker.setMap(null)
-          //   console.log("got here", response[0].longitude, response[0].latitude);
-          //   marker = new google.maps.Marker({
-          //     position: new google.maps.LatLng(response[0].latitude, response[0].longitude),
-          //     map: map,
-          //     icon: './car.png',
-          //     title:"Hello World!"
-          //   });
-          //   marker.setMap(map);
-          // });
-
-        }, 1000);
-
+          }, 1000);
+        })
       }).catch(error => {
         alert("sorry we have an error");
       });
