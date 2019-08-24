@@ -1,7 +1,7 @@
 async function getRoute(id){
   let route = []
   await $.ajax({
-      url: `http://127.0.0.1:8000/route/direction/${id}`, 
+      url: `https://campus-shuttle.herokuapp.com/route/direction/${id}`, 
       type: "GET",   
       dataType: 'json',
       cache: true,
@@ -17,7 +17,7 @@ async function getRoute(id){
 var map;
 function initMap() {
    map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 8,
+      zoom:10,
       center: {lat: 34.682, lng: -82.782},
       mapTypeId: 'terrain'
     });
@@ -46,7 +46,7 @@ function initMap() {
 
 
 function getRouteInfo(){
-  $.get("http://127.0.0.1:8000/route/getroutes/").then(data => {
+  $.get("https://campus-shuttle.herokuapp.com/route/getroutes/").then(data => {
     console.log(data);
     data.forEach(route => {
       $('ul').append(`<li class = "route_name"><a href="${route.id}">${route.route_name}</a></li>`)
@@ -79,7 +79,7 @@ function getRouteInfo(){
           let marker;
           setInterval(() => {  
             // Get position of vehicle being tracked
-            $.get(`http://127.0.0.1:8000/shuttle/${id}/`).then(response => {
+            $.get(`https://campus-shuttle.herokuapp.com/shuttle/${id}/`).then(response => {
               if(marker)
                 marker.setMap(null)
               marker = new google.maps.Marker({
