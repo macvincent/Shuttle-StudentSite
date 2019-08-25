@@ -47,7 +47,12 @@ function initMap() {
     $('#button').click(e => {
       e.preventDefault();
       $('nav').toggleClass('active');
-      console.log('test');
+      $('#map').click(e => {
+        if($('nav').attr('class') == 'active'){
+          e.preventDefault();
+          $('nav').toggleClass('active');
+        }
+      })
     });
 } 
 
