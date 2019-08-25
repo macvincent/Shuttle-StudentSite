@@ -51,7 +51,7 @@ function initMap() {
     $('#button').click(e => {
       e.preventDefault();
       $('nav').toggleClass('active');
-      $('#map').click(e => {
+      $('.route_name , #map').click(e => {
         if($('nav').attr('class') == 'active'){
           e.preventDefault();
           $('nav').toggleClass('active');
