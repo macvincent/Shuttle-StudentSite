@@ -24,6 +24,7 @@ function initMap() {
     });
     let userLocation;
     var currpos = [];
+    let centered = false;
     setInterval(() => {
       if(userLocation)
         userLocation.setMap(null)
@@ -40,7 +41,10 @@ function initMap() {
           map: map,
           title: 'your current position'
         });
-        map.setCenter({lat: currpos.coords.latitude, lng: currpos.coords.longitude});
+        if(!centered){
+          map.setCenter({lat: currpos.coords.latitude, lng: currpos.coords.longitude});
+          centered = true;
+        }
         userLocation.setMap(map);
       }
     }, 2000);

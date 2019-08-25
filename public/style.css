@@ -63,9 +63,13 @@ a{
 #button{
   visibility: hidden;
   position: fixed;
-  z-index: 3;
-  padding: 10px;
-  font-size: 25px;
+  z-index: 2;
+  margin: 5px;
+  padding: 2px;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 2px;
+  background: #3636362b;
 }
 .active{
   width: 80%;
