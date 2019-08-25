@@ -24,6 +24,7 @@ nav{
   width: 25%;
   height: 100%;
   background-color: #f9f9f9;
+  transition: all 0.7s ease 0s;
 }
 nav div{
   height: 45px;
@@ -62,12 +63,15 @@ a{
 #button{
   visibility: hidden;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   padding: 10px;
   font-size: 25px;
 }
 .active{
-  width: 500px;
+  width: 80%;
+  position: absolute;
+  z-index: 2;
+  transition: all 0.7s ease 0s;
 }
 @media (max-width: 992px){
   #button{
@@ -75,8 +79,14 @@ a{
   }
   nav{
     width: 0;
+    position: fixed;
   }
   .map{
     width: 100%;
+  }
+  .cuApp{
+    height: 100%;
+    width: 100%;
+    display: block;
   }
 }
