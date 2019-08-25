@@ -19,7 +19,7 @@ function initMap() {
    map = new google.maps.Map(document.getElementById('map'), {
       zoom:15,
       center: {lat: 33.498070, lng: -80.854220},
-      mapTypeId: 'hybrid',
+      mapTypeId: 'roadmap',
       disableDefaultUI: true
     });
     let userLocation;
@@ -44,6 +44,11 @@ function initMap() {
         userLocation.setMap(map);
       }
     }, 2000);
+    $('#button').click(e => {
+      e.preventDefault();
+      $('nav').toggleClass('active');
+      console.log('test');
+    });
 } 
 
 
