@@ -15,7 +15,9 @@ async function getRoute(id){
   return route;
 }
 var map;
+var markerPath;
 function initMap() {
+   markerPath = './img/you.png';
    map = new google.maps.Map(document.getElementById('map'), {
       zoom:15,
       center: {lat: 33.498070, lng: -80.854220},
@@ -249,12 +251,24 @@ function initMap() {
         currpos = response;
         },(e) => console.log(e), {enableHighAccuracy: true});
       }
-      
+      if (window.DeviceOrientationEvent) {
+        // Listen for the event and handle DeviceOrientationEvent object
+        window.addEventListener('deviceorientation', e => {
+          setTimeout(function (){
+            if(e.alpha){
+              let c = e.alpha/24;
+              if(e.alpha < 0)c = (360+c)/24;
+              c = Math.round(c);
+              markerPath = `./img/${c}.png`;
+            }
+          }, 1000);
+        }, false);
+      }
       if (currpos.coords){
         userLocation = new google.maps.Marker({
           position: new google.maps.LatLng(currpos.coords.latitude, currpos.coords.longitude),
           map: map,
-          icon: './you.png',
+          icon : markerPath,
           title: 'your current position'
         });
         if(!centered){
