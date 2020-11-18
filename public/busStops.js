@@ -363,8 +363,37 @@ let simulateDriverPaths = (busStops) =>{
                     markerOptions: {
                         map: null,
                     }
-                })
+                });
+
+                let route = result.routes[0].overview_path;
+                simulateRoute(route);
             }
         );
     });
+};
+
+let simulateRoute = (route) => {
+  let interval = 1000;
+  let userLocation = new google.maps.Marker({
+    map: map,
+    icon : './img/bus.svg',
+    title: 'bus'
+  });;
+  reversedRoute = Object.assign([], route);
+  reversedRoute.reverse();
+
+  route.forEach((point, index) => {
+    setTimeout(()=>{
+      userLocation.setPosition(point);
+    }, interval*index);
+  });
+  reversedRoute.forEach((point, index) => {
+    setTimeout(()=>{
+      userLocation.setPosition(point);
+    }, (interval*reversedRoute.length) + interval*index);
+  });
+  setTimeout(() => {
+    userLocation.setMap(null);
+    simulateRoute(route);
+  }, (interval*reversedRoute.length*2));
 }
