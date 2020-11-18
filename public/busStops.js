@@ -1,4 +1,5 @@
 let busStopIcon = './img/busStop.svg';
+let userLocation = null;
 let busStops = [
     {
         name: "Campus",
@@ -303,7 +304,6 @@ function initMap() {
 
     updateUserLocation(map);
     addBusStops(map);
-    simulateDriverPaths(busStops);
     updateActiveBusStops();
 }
 
@@ -322,7 +322,6 @@ let addBusStops = (map) => {
 
 // Update Current User Position
 let updateUserLocation = (map) => {
-    let userLocation;
     let centered = false;
     setInterval(() => {
         // Destoy marker after each interval
@@ -353,6 +352,7 @@ let updateUserLocation = (map) => {
 };
 
 let simulateDriverPaths = (busStops) =>{
+    if(userLocation)userLocation.setMap(map);
     buses.forEach((bus, id) => {
       let route = bus.route;
       let origin = {lat: busStops[route[0]].location[0], lng: busStops[route[0]].location[1]};
@@ -395,18 +395,21 @@ let simulateRoute = (route, id) => {
   reversedRoute.reverse();
 
   route.forEach((point, index) => {
-    setTimeout(()=>{
+    let to1 = setTimeout(()=>{
+      if(!simulate)clearTimeout(to1);
       userLocation.setPosition(point);
       buses[id].location = point;
     }, interval*index);
   });
   reversedRoute.forEach((point, index) => {
-    setTimeout(()=>{
+    let to2 = setTimeout(()=>{
+      if(!simulate)clearTimeout(to2);
       userLocation.setPosition(point);
       buses[id].location = point;
     }, (interval*reversedRoute.length) + interval*index);
   });
-  setTimeout(() => {
+  let to3 = setTimeout(() => {
+    if(!simulate)clearTimeout(to3);
     userLocation.setMap(null);
     simulateRoute(route, id);
   }, (interval*reversedRoute.length*2));

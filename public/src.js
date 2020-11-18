@@ -2,6 +2,7 @@ let currPos = [];
 let closestBusStop = [];
 let eta = [];
 let currentETASecond = Number.MAX_VALUE;
+let simulate = false;
 // Get JSON of route co-ordinates
 // async function getRoute(id){
 //   let route = []
@@ -141,6 +142,7 @@ let getInfo = () => {
   $("#getInfo").click(() => {
     if(interval)clearInterval(interval);
     interval = setInterval(()=> {
+      if(!simulate)clearInterval(interval);
       let destinationStop = $("#busStops :selected").val();
       getClosestActiveBusStop();
       getETA(destinationStop);
@@ -155,4 +157,15 @@ let getInfo = () => {
 $(document).ready(function() {
   setUpNav();
   getInfo();
+  $('input[name=simulate]').change(function(){
+    if($(this).is(':checked')) {
+      console.log("Start Simulation");
+      simulate = true;
+      simulateDriverPaths(busStops);            
+
+    } else {
+      console.log("End Simulation");
+      simulate = false;
+    }
+  });
 });
