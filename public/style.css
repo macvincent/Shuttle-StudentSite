@@ -23,17 +23,16 @@ html, body {
 nav{
   width: 25%;
   height: 100%;
-  background-color: #f9f9f9;
+  background-color: rgb(22 33 57);
   transition: all 0.7s ease 0s;
 }
 nav div{
-  height: 45px;
-  color: black;
+  height: 60px;
+  color: #fff;
 }
 h1{
   text-align: center;
   margin: 1em;
-  font-size: 1em;
 }
 .map{
   width: 75%;
