@@ -8,6 +8,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: var(--pure-material-font, "Roboto", "Segoe UI", BlinkMacSystemFont, system-ui, -apple-system);
 } 
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -95,7 +96,7 @@ a{
   }
 }
 .profile{
-  height: 30%;
+  height: 70%;
   text-align: center;
   color:#bfcae2;
 }
@@ -110,5 +111,45 @@ a{
   margin: auto;
 }
 .greeting{
+  height: 10%;
+}
+.dropOff{
+  width: 80%;
+  height: 60%;
+  background-color: #0f1728;
+  margin: auto;
+  border-radius: 4px;
+}
 
+.simulation{
+  height: 10%;
+  width: 100%;
+  margin-top: 20px;
+}
+
+option, select{
+  text-align: center;
+  height: 8%;
+  font-size: 15px;
+  width: 80%;
+  background-color: #bfcae2;
+}
+
+#getInfo{
+  padding: 5px;
+  border-radius: 5%;
+  margin: 5%;
+  font-size: 15px;
+  border: 2px solid #d3d3d3;
+  background-color: #bfcae2;
+}
+
+#getInfo:hover{
+  padding: 4px;
+  cursor: pointer;
+}
+
+.response{
+  font-size: 15px;
+  margin: 5%;
 }

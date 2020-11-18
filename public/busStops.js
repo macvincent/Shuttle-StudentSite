@@ -27,6 +27,19 @@ let busStops = [
     }
 ];
 
+let buses = [
+  {
+    name: "bus1",
+    route: [0, 1, 2],
+    location: [],
+  },
+  {
+    name: "bus2",
+    route: [3, 2, 0],
+    location: [],
+  }
+]
+
 //  We create and specify the design of the map element that will be displayed to the user
 let map;
 let markerPath;
@@ -291,6 +304,7 @@ function initMap() {
     updateUserLocation(map);
     addBusStops(map);
     simulateDriverPaths(busStops);
+    updateActiveBusStops();
 }
 
 // Add busstops
@@ -309,7 +323,6 @@ let addBusStops = (map) => {
 // Update Current User Position
 let updateUserLocation = (map) => {
     let userLocation;
-    var currpos = [];
     let centered = false;
     setInterval(() => {
         // Destoy marker after each interval
@@ -318,20 +331,20 @@ let updateUserLocation = (map) => {
 
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(response => {
-            currpos = response;
+            currPos = response;
             },(e) => console.log(e), {enableHighAccuracy: true});
         }
 
         let markerPath = `./img/locationMarker.svg`;
-        if (currpos.coords){
+        if (currPos.coords){
             userLocation = new google.maps.Marker({
-                position: new google.maps.LatLng(currpos.coords.latitude, currpos.coords.longitude),
+                position: new google.maps.LatLng(currPos.coords.latitude, currPos.coords.longitude),
                 map: map,
                 icon : markerPath,
                 title: 'Your Current Position'
             });
             if(!centered){
-                map.setCenter({lat: currpos.coords.latitude, lng: currpos.coords.longitude});
+                map.setCenter({lat: currPos.coords.latitude, lng: currPos.coords.longitude});
                 centered = true;
             }
             userLocation.setMap(map);
@@ -340,39 +353,38 @@ let updateUserLocation = (map) => {
 };
 
 let simulateDriverPaths = (busStops) =>{
-    let routes = [[0,1,2],[3, 2, 0]];
-    // let routes = [[0,1,2]];
-    routes.forEach(route => {
-        let origin = {lat: busStops[route[0]].location[0], lng: busStops[route[0]].location[1]};
-        let destination = {lat: busStops[route[1]].location[0], lng: busStops[route[1]].location[1]};
-        let waypoint =  {lat: busStops[route[2]].location[0], lng: busStops[route[2]].location[1]};
-        let travelMode = "DRIVING";
-        let directionsService = new google.maps.DirectionsService;
-        directionsService.route(
-            {
-                destination: destination,
-                origin: origin,
-                travelMode: travelMode,
-                waypoints: [{location: waypoint}],
-            },
-            (result, status) => {
-                let directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
-                directionsRenderer.setDirections(result);
-                directionsRenderer.setMap(map);
-                directionsRenderer.setOptions({
-                    markerOptions: {
-                        map: null,
-                    }
-                });
+    buses.forEach((bus, id) => {
+      let route = bus.route;
+      let origin = {lat: busStops[route[0]].location[0], lng: busStops[route[0]].location[1]};
+      let destination = {lat: busStops[route[1]].location[0], lng: busStops[route[1]].location[1]};
+      let waypoint =  {lat: busStops[route[2]].location[0], lng: busStops[route[2]].location[1]};
+      let travelMode = "DRIVING";
+      let directionsService = new google.maps.DirectionsService;
+      directionsService.route(
+          {
+              destination: destination,
+              origin: origin,
+              travelMode: travelMode,
+              waypoints: [{location: waypoint}],
+          },
+          (result, status) => {
+              let directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
+              directionsRenderer.setDirections(result);
+              directionsRenderer.setMap(map);
+              directionsRenderer.setOptions({
+                  markerOptions: {
+                      map: null,
+                  }
+              });
 
-                let route = result.routes[0].overview_path;
-                simulateRoute(route);
-            }
-        );
+              let route = result.routes[0].overview_path;
+              simulateRoute(route, id);
+          }
+      );
     });
 };
 
-let simulateRoute = (route) => {
+let simulateRoute = (route, id) => {
   let interval = 1000;
   let userLocation = new google.maps.Marker({
     map: map,
@@ -385,15 +397,24 @@ let simulateRoute = (route) => {
   route.forEach((point, index) => {
     setTimeout(()=>{
       userLocation.setPosition(point);
+      buses[id].location = point;
     }, interval*index);
   });
   reversedRoute.forEach((point, index) => {
     setTimeout(()=>{
       userLocation.setPosition(point);
+      buses[id].location = point;
     }, (interval*reversedRoute.length) + interval*index);
   });
   setTimeout(() => {
     userLocation.setMap(null);
-    simulateRoute(route);
+    simulateRoute(route, id);
   }, (interval*reversedRoute.length*2));
 }
+
+let updateActiveBusStops = () => {
+  busStops.forEach((busStop, index) => {
+    if(busStop.active)
+      $("select").append(`<option value="${index}">${busStop.name}</option>`);
+  });
+};

@@ -27,6 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./src.js"></script>
     <script src="./busStops.js"></script>
+    <link rel="stylesheet" href="./button.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLUOV2LrlgiSh1ovYJlvZDwz2cnO1l6s&callback=initMap" async defer></script>    
     <link rel="stylesheet" href="./style.css">
   </head>
@@ -46,10 +47,19 @@
           <div class="greeting">
             <h1>Hello, MacVincent!</h1>
           </div>
-          <div class="dropOff"></div>
+          <div class="dropOff">
+            <label for="select"><h4>Select Destination</h4></label>
+            <select id="busStops"></select><br>
+            <button id="getInfo">Get Info</button>
+            <div class="response"></div>
+          </div>
+          <div class="simulation">
+            <label class="pure-material-switch">
+              <input type="checkbox">
+              <span>Simulation</span>
+            </label>
+          </div>
         </div>
-        <ul>
-        </ul>
       </nav>
       <!-- Replace the value of the key parameter with your own API key. -->
       <div id="map" class="map"></div>
