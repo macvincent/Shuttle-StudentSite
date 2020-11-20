@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -14,7 +14,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -28,41 +28,43 @@
     <script src="./src.js"></script>
     <script src="./busStops.js"></script>
     <link rel="stylesheet" href="./button.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLUOV2LrlgiSh1ovYJlvZDwz2cnO1l6s&callback=initMap" async defer></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALLUOV2LrlgiSh1ovYJlvZDwz2cnO1l6s&callback=initMap" async defer></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.9/auth0-spa-js.production.js"></script>    
     <link rel="stylesheet" href="./style.css">
+    <script src="./js/app.js"></script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <a id="button" href="#"><span>&#9776</span></a>
-    <div class="cuApp">
-      <nav>
-        <div id="header">
-          <h1>CUTransit</h1>
-        </div>
-        <div class="profile">
-          <div class="profilePicture">
-            <img src="%PUBLIC_URL%/img/placeholder.png" alt="">
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <div id="root"></div>
+      <a id="button" href="#"><span>&#9776</span></a>
+      <div class="cuApp">
+        <nav>
+          <div id="header">
+            <h1>CUTransit</h1>
           </div>
-          <div class="greeting">
-            <h1>Hello!</h1>
+          <div class="profile">
+            <div class="profilePicture">
+              <img src="/img/placeholder.png" alt="" id="profilePicture">
+            </div>
+            <div class="greeting">
+              <h1>Hello<span id="name"></span>!</h1>
+            </div>
+            <div class="dropOff">
+              <label for="select"><h4>Select Destination</h4></label>
+              <select id="busStops"></select><br>
+              <button id="getInfo">Get Info</button>
+              <div class="response"></div>
+            </div>
+            <div class="simulation">
+              <label class="pure-material-switch">
+                <input type="checkbox" name="simulate">
+                <span>Simulation</span>
+              </label>
+            </div>
           </div>
-          <div class="dropOff">
-            <label for="select"><h4>Select Destination</h4></label>
-            <select id="busStops"></select><br>
-            <button id="getInfo">Get Info</button>
-            <div class="response"></div>
-          </div>
-          <div class="simulation">
-            <label class="pure-material-switch">
-              <input type="checkbox" name="simulate">
-              <span>Simulation</span>
-            </label>
-          </div>
-        </div>
-      </nav>
-      <!-- Replace the value of the key parameter with your own API key. -->
-      <div id="map" class="map"></div>
-    </div>
+        </nav>
+        <!-- Replace the value of the key parameter with your own API key. -->
+        <div id="map" class="map"></div>
+      </div>
  </body>
 </html>
