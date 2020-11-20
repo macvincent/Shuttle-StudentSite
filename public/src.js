@@ -147,7 +147,8 @@ let getInfo = () => {
       getETA(destinationStop);
       let appendStr = `            
         <span> Nearest Bus Stop: </br> ${closestBusStop.name || ''} (${closestBusStop.duration || ''} walk) </span></br></br>
-        <span> Bus ETA at Stop: </br> ${eta || ''} </span>`;
+        <span> Bus ETA at Stop: </br> ${eta || ''} </span></br></br>
+        <span> Selected Destination: </br> ${busStops[destinationStop].name || ''} </span></br>`;
       if(simulate)$(".response").html(appendStr);
     }, 2000);
   });
