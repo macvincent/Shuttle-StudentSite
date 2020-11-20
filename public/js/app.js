@@ -34,7 +34,7 @@ const updateUI = async () => {
         $(".cuApp").css("display", "flex");
         let userDetails = await auth0.getUser();
         $("#profilePicture").attr("src", userDetails.picture);
-        if(userDetails.given_name)$("#name").text(" "+userDetails.given_name);
+        if(userDetails.given_name)$("#name").text(" "+`${userDetails.given_name || ''}`);
         window.history.replaceState({}, document.title, "/");
     }
 };
