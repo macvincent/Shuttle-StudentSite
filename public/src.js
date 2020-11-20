@@ -93,6 +93,7 @@ let setUpNav = () => {
 };
 
 let getClosestActiveBusStop = () => {
+  if(!currPos.coords.latitude)return;
   let currPosition = new google.maps.LatLng(currPos.coords.latitude, currPos.coords.longitude);
   let distanceMatrix = new google.maps.DistanceMatrixService();
   let currentClosestDistance = Number.MAX_VALUE;
@@ -147,8 +148,8 @@ let getInfo = () => {
       getClosestActiveBusStop();
       getETA(destinationStop);
       let appendStr = `            
-        <span> Nearest Bus Stop: </br> ${closestBusStop.name} (${closestBusStop.duration} walk) </span></br></br>
-        <span> Bus ETA at Stop: </br> ${eta} </span>`;
+        <span> Nearest Bus Stop: </br> ${closestBusStop.name || ''} (${closestBusStop.duration || ''} walk) </span></br></br>
+        <span> Bus ETA at Stop: </br> ${eta || ''} </span>`;
       $(".response").html(appendStr);
     }, 2000);
   });
