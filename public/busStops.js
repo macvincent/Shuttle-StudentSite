@@ -1,25 +1,26 @@
 let busStopIcon = './img/busStop.svg';
 let userLocation = null;
+let centered = false;
 let busStops = [
     {
         name: "Campus",
         location: [33.4991,-80.8534],
-        active: true,
+        active: false,
     },
     {
         name: "Walmart",
         location: [33.524309, -80.893383],
-        active: true,
+        active: false,
     },
     {
         name: "740 Avenue Apartment",
         location: [33.503165, -80.85767],
-        active: true,
+        active: false,
     },
     {
         name: "Edisto Gardens",
         location: [33.487697, -80.874106],
-        active: true,
+        active: false,
     },
     {
         name: "Dollar General",
@@ -305,6 +306,7 @@ function initMap() {
     updateUserLocation(map);
     addBusStops(map);
     updateActiveBusStops();
+    console.log("Initialized Map");
 }
 
 // Add busstops
@@ -322,7 +324,6 @@ let addBusStops = (map) => {
 
 // Update Current User Position
 let updateUserLocation = (map) => {
-    let centered = false;
     setInterval(() => {
         // Destoy marker after each interval
         if(userLocation)
@@ -355,6 +356,9 @@ let simulateDriverPaths = (busStops) =>{
     if(userLocation)userLocation.setMap(map);
     buses.forEach((bus, id) => {
       let route = bus.route;
+      route.forEach(stop => {
+        busStops[stop].active = true;
+      });
       let origin = {lat: busStops[route[0]].location[0], lng: busStops[route[0]].location[1]};
       let destination = {lat: busStops[route[1]].location[0], lng: busStops[route[1]].location[1]};
       let waypoint =  {lat: busStops[route[2]].location[0], lng: busStops[route[2]].location[1]};
@@ -382,6 +386,7 @@ let simulateDriverPaths = (busStops) =>{
           }
       );
     });
+    initMap();
 };
 
 let simulateRoute = (route, id) => {

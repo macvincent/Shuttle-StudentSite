@@ -81,6 +81,7 @@ a{
 @media (max-width: 992px){
   #button{
     visibility: visible;
+    background-color: #fff;
   }
   nav{
     width: 0;
