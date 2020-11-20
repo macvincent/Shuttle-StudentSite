@@ -139,10 +139,8 @@ let getETA = (busStopId) => {
 };
 
 let getInfo = () => {
-  let interval = null;
   $("#getInfo").click(() => {
-    if(interval)clearInterval(interval);
-    interval = setInterval(()=> {
+    let interval = setInterval(()=> {
       if(!simulate)clearInterval(interval);
       let destinationStop = $("#busStops :selected").val();
       getClosestActiveBusStop();
@@ -150,7 +148,7 @@ let getInfo = () => {
       let appendStr = `            
         <span> Nearest Bus Stop: </br> ${closestBusStop.name || ''} (${closestBusStop.duration || ''} walk) </span></br></br>
         <span> Bus ETA at Stop: </br> ${eta || ''} </span>`;
-      $(".response").html(appendStr);
+      if(simulate)$(".response").html(appendStr);
     }, 2000);
   });
 };
@@ -167,6 +165,8 @@ $(document).ready(function() {
     } else {
       console.log("End Simulation");
       simulate = false;
+      $(".response").html('');
+      initMap(map);
     }
   });
 });
