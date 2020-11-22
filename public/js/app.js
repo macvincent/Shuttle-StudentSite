@@ -36,6 +36,7 @@ const updateUI = async () => {
         $("#profilePicture").attr("src", userDetails.picture);
         $("#name").text(" "+`${userDetails.given_name || userDetails.nickname || ''}`);
         window.history.replaceState({}, document.title, "/");
+        initMap();
     }
 };
 
