@@ -153,3 +153,6 @@ option, select{
   font-size: 15px;
   margin: 5%;
 }
+#name{
+  text-transform: capitalize;
+}
